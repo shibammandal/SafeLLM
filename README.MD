@@ -1,20 +1,20 @@
-# SafeLLM 🛡️
+# SafeLLM 
 
-A lightweight AI safety tool that computes and displays the **raw, tamper-proof mathematical confidence score** underneath every LLM response using Ollama's neural network token log-probabilities.
-
----
-
-## 🎯 The Core Idea
-
-Standard LLMs are notoriously overconfident when asked to self-evaluate:
-- Verbalized confidence (*"I am 99% sure"*) is just generated text that can be hallucinated, sycophantic, or manipulated.
-- **SafeLLM** bypasses the model's text generation and extracts the exact probabilities directly from the transformer's softmax distribution ($P(t) = e^{\text{logprob}}$).
-- The model **cannot see or tamper with this score** because it is calculated entirely outside of the model's generation context.
-- **No arbitrary thresholds or censorship**: SafeLLM simply presents the raw, objective certainty percentage under every answer.
+AI safety framework that calculates **mathematical confidence scores** directly from Ollama's neural network token log-probabilities.
 
 ---
 
-## 🏗️ Architecture
+## The Problem
+
+Standard LLMs are notoriously overconfident:
+- When prompted *"How sure are you?"*, a model will claim 99% certainty even while completely hallucinating.
+- Verbalized confidence is just generated text—it can be manipulated, hallucinated, or jailbroken.
+
+**SafeLLM's Solution:** Compute true confidence at the **neural network probability level**. The model produces text, but an external evaluator calculates the exact token probabilities $P(t) = e^{\text{logprob}}$. The model cannot see or game this calculation.
+
+---
+
+## Architecture
 
 ```mermaid
 flowchart TD
@@ -33,9 +33,9 @@ flowchart TD
 
 ---
 
-## 🚀 Quickstart
+## Quickstart
 
-1. Ensure Ollama is running locally:
+1. Ensure Ollama is running:
    ```bash
    ollama serve
    ```
